@@ -1,0 +1,54 @@
+{% include 'layouts/header.html' %}
+<div class="d-md-flex flex-row-reverse" ng-controller="signin">
+    <div class="signin-right">
+
+        <div class="signin-box">
+            <h2 class="signin-title-primary">Bienvenue à vous !</h2>
+            <h3 class="signin-title-secondary">Connectez-vous pour continuer.</h3>
+
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Entrez votre email" name="user" ng-model="email" my-enter="signin()">
+            </div>
+            <!-- form-group -->
+            <div class="form-group mg-b-50">
+                <input type="password" class="form-control" placeholder="Entrez votre mot de passe" name="password" ng-model="password" my-enter="signin()">
+            </div>
+            <!-- form-group -->
+
+            <div class="alert alert-solid alert-danger" ng-cloak ng-show="error"><strong>Erreur : </strong>{[{ error }]}</div>
+            <div class="alert alert-solid alert-success" ng-cloak ng-show="success"><strong>Parfait : </strong>{[{ success }]}</div>
+
+            <button class="btn btn-primary btn-block btn-signin" ng-click="signin()" ng-disabled="signinProgress">Se connecter</button>
+            <p class="mg-b-0">Pas encore de compte ? <a href="/signup">S'inscrire</a></p>
+            <p class="mg-b-0">Mot de passe oublié ? <a href="/forgot">Récupérer un nouveau</a></p>
+        </div>
+
+    </div>
+    <!-- signin-right -->
+    <div class="signin-left">
+        <div class="signin-box">
+            <h2 class="slim-logo"><a href="#">D<div class="tx-info">Manager</div></a></h2>
+
+            <p>Nous sommes ravi de vous voir ici, vous pourrez trouver toutes sortes d'applications à installer sur votre serveur Discord. Nous espérons que vous y trouverez votre bonheur, un système de management, de logs seront à votre disposition.</p>
+
+            <p>Pour en savoir plus sur le fonctionnement de Discord Manager.</p>
+
+            <p><a href="#" class="btn btn-outline-secondary pd-x-25">Documentation</a></p>
+
+            <p class="tx-12">&copy; Copyright 2018. Tout droit réservé.</p>
+        </div>
+    </div>
+    <!-- signin-left -->
+</div>
+<!-- d-flex -->
+<!-- slim-footer -->
+<script src="/vendor/popper.js/js/popper.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.js"></script>
+
+<script src="/js/main.js"></script>
+<script src="/js/controllers/signin.js"></script>
+
+<script src="/js/slim.js"></script>
+</body>
+
+</html>

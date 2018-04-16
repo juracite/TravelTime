@@ -1,0 +1,66 @@
+{% include 'layouts/header.html' %} {% include 'layouts/header-connected.html' %} {% include 'layouts/navbar.html' %}
+<div class="slim-mainpanel">
+    <div class="container">
+        <div class="slim-pageheader">
+            <ol class="breadcrumb slim-breadcrumb">
+                <li class="breadcrumb-item"><a href="#">{{ page }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ pageElement }}</li>
+            </ol>
+            <h6 class="slim-pagetitle">{{ pageElement }}</h6>
+        </div>
+        <!-- slim-pageheader -->
+        <div class="row">
+            <div class="col-lg-6">
+                <h3 class="tx-white mg-b-15">Bienvenue {{ username }} !</h3>
+                <p class="mg-b-40">Voici votre dashboard qui vous permettra de gérer toutes vos applications Discord.</p>
+
+                <h6 class="slim-card-title mg-b-15">Vos applications/serveurs</h6>
+                <div class="row no-gutters">
+                    <div class="col-sm-6">
+                        <div class="card card-earning-summary text-center">
+                            <h6>Total</h6>
+                            <h1>0</h1>
+                            <span>Applications</span>
+                        </div>
+                        <!-- card -->
+                    </div>
+                    <!-- col-6 -->
+                    <div class="col-sm-6">
+                        <div class="card card-earning-summary mg-sm-l--1 bd-t-0 bd-sm-t text-center">
+                            <h6>Total</h6>
+                            <h1>0</h1>
+                            <span>Serveurs</span>
+                        </div>
+                        <!-- card -->
+                    </div>
+                    <!-- col-6 -->
+                </div>
+                <!-- row -->
+            </div>
+            <!-- col-6 -->
+            <div class="col-lg-6 mg-t-20 mg-sm-t-30 mg-lg-t-0">
+                <div class="card card-dash-headline">
+                    <h4>Commencer à utiliser Discord Manager, vous pouvez dès à présent ajouter une application ou un serveur</h4>
+                    <p>Vous pouvez ajouter une application ou bien un serveur si vous n'en avez pas déjà spécifié un lors de votre inscription...</p>
+                    <div class="row row-sm">
+                        <div class="col-sm-6">
+                            <a href="" class="btn btn-primary btn-block">Ajouter une application</a>
+                        </div>
+                        <!-- col-6 -->
+                        <div class="col-sm-6 mg-t-10 mg-sm-t-0">
+                            <a href="" class="btn btn-success btn-block">Ajouter un serveur</a>
+                        </div>
+                        <!-- col-6 -->
+                    </div>
+                    <!-- row -->
+                </div>
+                <!-- card -->
+            </div>
+            <!-- col-6 -->
+        </div>
+    </div>
+    <!-- container -->
+</div>
+<!-- slim-mainpanel -->
+
+{% include 'layouts/footer.html' %}

@@ -1,0 +1,15 @@
+{
+    "server": {
+        "protocol": "http",
+        "host": "localhost:3500"
+    },
+    "discord": {
+        "key": "393735689344385026",
+        "secret": "dbpSF0ET3aBCbC502f2-0Ciy9i0z2PkA",
+        "callback": "/discord_connect_oauth2",
+        "scope": [
+            "email",
+            "user_likes"
+        ]
+    }
+}

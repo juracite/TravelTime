@@ -1,0 +1,56 @@
+{% include 'layouts/header.html' %}
+<div class="d-md-flex flex-row-reverse" ng-controller="signup">
+    <div class="signin-right">
+
+        <div class="signin-box signup">
+            <h3 class="signin-title-primary">Et c'est parti !</h3>
+            <h5 class="signin-title-secondary lh-4">L'inscription est totalement gratuite et ne prend que quelques minutes.</h5>
+
+            <div class="row row-xs mg-b-10">
+                <div class="col-sm"><input type="email" class="form-control" placeholder="Email" name="email" ng-model="email" my-enter="signup()" required></div>
+            </div>
+            <!-- row -->
+
+            <div class="row row-xs mg-b-10">
+                <div class="col-sm"><input type="password" class="form-control" placeholder="Mot de passe" name="password" ng-model="password" my-enter="signup()" required ng-minlength="6"></div>
+                <div class="col-sm mg-t-10 mg-sm-t-0"><input type="password" class="form-control" placeholder="Mot de passe (Confirmation)" name="password_second" ng-model="password_second" my-enter="signup()" required ng-minlength="6"></div>
+            </div>
+            <!-- row -->
+
+            <div class="alert alert-solid alert-danger" ng-cloak ng-show="error"><strong>Erreur : </strong>{[{ error }]}</div>
+            <button class="btn btn-primary btn-block btn-signin" ng-click="signup()" ng-disabled="signupProgress">S'inscrire</button>
+
+            <p class="mg-t-40 mg-b-0">Déjà un compte ? <a href="/signin">Se connecter</a></p>
+        </div>
+        <!-- signin-box -->
+
+    </div>
+    <!-- signin-right -->
+    <div class="signin-left">
+        <div class="signin-box">
+            <h2 class="slim-logo"><a href="#">D<div class="tx-info">Manager</div></a></h2>
+
+            <p>Nous sommes ravi de vous voir ici, vous pourrez trouver toutes sortes d'applications à installer sur votre serveur Discord. Nous espérons que vous y trouverez votre bonheur, un système de management, de logs seront à votre disposition.</p>
+
+            <p>Pour en savoir plus sur le fonctionnement de Discord Manager.</p>
+
+            <p><a href="#" class="btn btn-outline-secondary pd-x-25">Documentation</a></p>
+
+            <p class="tx-12">&copy; Copyright 2018. Tout droit réservé.</p>
+        </div>
+    </div>
+    <!-- signin-left -->
+</div>
+<!-- d-flex -->
+
+<!-- slim-footer -->
+<script src="/vendor/popper.js/js/popper.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.js"></script>
+
+<script src="/js/main.js"></script>
+<script src="/js/controllers/signup.js"></script>
+
+<script src="/js/slim.js"></script>
+</body>
+
+</html>

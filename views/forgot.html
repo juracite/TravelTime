@@ -1,0 +1,30 @@
+{% include 'layouts/header.html' %}
+<div class="signin-wrapper" ng-controller="forgot">
+
+    <div class="signin-box">
+        <h2 class="slim-logo"><a href="#">D<div class="tx-info">Manager</div></a></h2>
+        <h2 class="signin-title-primary">Récupération de mot de passe</h2>
+        <h3 class="signin-title-secondary">Entrez votre email pour continuer</h3>
+
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Entrez votre email" name="user" ng-model="email" my-enter="forgot();">
+        </div>
+        <!-- form-group -->
+        <button class="btn btn-primary btn-block btn-signin" ng-click="forgot();">Récupérer</button>
+        <p class="mg-b-0">Vous voulez vous connecter ? <a href="/signin">Se connecter</a></p>
+    </div>
+    <!-- signin-box -->
+
+</div>
+<!-- signin-wrapper -->
+<!-- slim-footer -->
+<script src="/vendor/popper.js/js/popper.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.js"></script>
+
+<script src="/js/main.js"></script>
+<script src="/js/controllers/forgot.js"></script>
+
+<script src="/js/slim.js"></script>
+</body>
+
+</html>

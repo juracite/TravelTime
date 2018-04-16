@@ -1,0 +1,11 @@
+.slim-header .container .slim-header-left .slim-logo div {
+    display: inline-block;
+}
+
+.signin-left .signin-box .slim-logo div {
+    display: inline-block;
+}
+
+.signin-wrapper .signin-box .slim-logo div {
+    display: inline-block;
+}
