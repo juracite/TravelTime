@@ -1,7 +1,8 @@
 module.exports = (app, modules, models) => {
 
-    let { emailExist } = modules;
+    let { emailExist, connection, bcrypt } = modules;
     let { User } = models;
+    const saltRounds = 10;
 
     app.get('/signin', (req, res, next) => {
 
@@ -35,30 +36,56 @@ module.exports = (app, modules, models) => {
                 error: "L'email entré est incorrect."
             });
 
-            User.findOne({ email: email }).exec((err, user) => {
+            connection.query({
+                sql: 'SELECT * FROM utilisateur WHERE mail = ?',
+                values: [email]
+            }, (err, result, fields) => {
                 if (err) throw err;
+                if (result.length === 0) return res.send({ success: false, error: "Compte inexistant." });
 
-                if (!user) return res.send({
-                    success: false,
-                    error: "L'adresse mail et/ou le mot de passe entrés sont incorrects."
+                bcrypt.compare(password, result[0].password, (err, right) => {
+                    if (err) throw err;
+                    if (right) {
+                        req.session.authenticated = true;
+                        req.session.email = email;
+
+                        return res.send({
+                            success: true,
+                            user: email
+                        })
+                    } else {
+                        return res.send({
+                            success: false,
+                            error: "L'adresse mail et/ou le mot de passe entrés sont incorrects."
+                        });
+                    }
                 });
-
-                user.verifyPassword(password).then(valid => {
-                    if (!valid) return res.send({
-                        success: false,
-                        error: "L'adresse mail et/ou le mot de passe entrés sont incorrects."
-                    });
-
-                    req.session.authenticated = true;
-                    req.session.username = user.username;
-                    req.session.email = email;
-
-                    return res.send({
-                        success: true,
-                        user: email
-                    })
-                }).catch(err => console.error(err));
             });
+
+            // User.findOne({ email: email }).exec((err, user) => {
+            //     if (err) throw err;
+
+            //     if (!user) return res.send({
+            //         success: false,
+            //         error: "L'adresse mail et/ou le mot de passe entrés sont incorrects."
+            //     });
+
+            //     user.verifyPassword(password).then(valid => {
+            //         if (!valid) return res.send({
+            //             success: false,
+            //             error: "L'adresse mail et/ou le mot de passe entrés sont incorrects."
+            //         });
+
+            //         req.session.authenticated = true;
+            //         req.session.username = user.username;
+            //         req.session.email = email;
+
+            //         return res.send({
+            //             success: true,
+            //             user: email
+            //         })
+            //     }).catch(err => console.error(err));
+            // });
         });
     });
 
@@ -90,32 +117,51 @@ module.exports = (app, modules, models) => {
                     error: "L'email entré est incorrect."
                 });
 
-                let username = email.slice(0, email.indexOf("@"));
+                connection.query({
+                    sql: 'SELECT * FROM utilisateur WHERE mail = ?',
+                    values: [email]
+                }, (err, result, fields) => {
+                    if (err) throw err;
+                    if (result.length !== 0) return res.send({ success: false, error: "L'email est déja utilisé" });
 
-                let userData = {
-                    email: email,
-                    username: username,
-                    password: password
-                }
-
-                User.find({ email: email }, function(err, docs) {
-                    if (docs.length) return res.send({
-                        success: false,
-                        error: "Un utilisateur utilise déjà cette adresse mail."
-                    });
-
-                    User.create(userData, (err, user) => {
-                        if (err) return res.send({
-                            success: false,
-                            error: err
-                        });
-
-                        return res.send({
-                            success: true,
-                            user: email
+                    bcrypt.hash(password, saltRounds, (err, hash) => {
+                        if (err) throw err;
+                        connection.query({
+                            sql: 'INSERT INTO utilisateur(mail, password) VALUES(?,?)',
+                            values: [email, hash]
+                        }, (err, result) => {
+                            if (err) throw err;
+                            return res.send({ success: true, result });
                         });
                     });
                 });
+
+                // let username = email.slice(0, email.indexOf("@"));
+
+                // let userData = {
+                //     email: email,
+                //     username: username,
+                //     password: password
+                // }
+
+                // User.find({ email: email }, function(err, docs) {
+                //     if (docs.length) return res.send({
+                //         success: false,
+                //         error: "Un utilisateur utilise déjà cette adresse mail."
+                //     });
+
+                //     User.create(userData, (err, user) => {
+                //         if (err) return res.send({
+                //             success: false,
+                //             error: err
+                //         });
+
+                //         return res.send({
+                //             success: true,
+                //             user: email
+                //         });
+                //     });
+                // });
             })
 
         } else {

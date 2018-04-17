@@ -1,5 +1,5 @@
 {% include 'layouts/header.html' %} {% include 'layouts/header-connected.html' %} {% include 'layouts/navbar.html' %}
-<div class="slim-mainpanel">
+<div class="slim-mainpanel" ng-controller="search">
     <div class="container">
         <div class="slim-pageheader">
             <ol class="breadcrumb slim-breadcrumb">
@@ -9,55 +9,79 @@
             <h6 class="slim-pagetitle">{{ pageElement }}</h6>
         </div>
         <!-- slim-pageheader -->
-        <div class="row">
-            <div class="col-lg-6">
-                <h3 class="tx-white mg-b-15">Bienvenue {{ username }} !</h3>
-                <p class="mg-b-40">Voici votre dashboard qui vous permettra de gérer toutes vos applications Discord.</p>
 
-                <h6 class="slim-card-title mg-b-15">Vos applications/serveurs</h6>
+
+        <div class="section-wrapper mg-t-20">
+            <label class="section-title">Rechercher une destination</label>
+            <p class="mg-b-20 mg-sm-b-40">Les différentes offres sont disponibles aussi dans la rubrique <a href="#">"Idées de voyage"</a></p>
+
+            <div class="form-layout form-layout-6">
                 <div class="row no-gutters">
-                    <div class="col-sm-6">
-                        <div class="card card-earning-summary text-center">
-                            <h6>Total</h6>
-                            <h1>0</h1>
-                            <span>Applications</span>
-                        </div>
-                        <!-- card -->
+                    <div class="col-5 col-sm-4">
+                        <span class="tx-danger mr-1">*</span>Partir de :
                     </div>
-                    <!-- col-6 -->
-                    <div class="col-sm-6">
-                        <div class="card card-earning-summary mg-sm-l--1 bd-t-0 bd-sm-t text-center">
-                            <h6>Total</h6>
-                            <h1>0</h1>
-                            <span>Serveurs</span>
-                        </div>
-                        <!-- card -->
+                    <!-- col-4 -->
+                    <div class="col-7 col-sm-8">
+                        <input class="form-control" type="text" name="fullname" placeholder="Lieu de départ" ng-model="origin" my-enter="search();" required>
                     </div>
-                    <!-- col-6 -->
+                    <!-- col-8 -->
                 </div>
                 <!-- row -->
-            </div>
-            <!-- col-6 -->
-            <div class="col-lg-6 mg-t-20 mg-sm-t-30 mg-lg-t-0">
-                <div class="card card-dash-headline">
-                    <h4>Commencer à utiliser Discord Manager, vous pouvez dès à présent ajouter une application ou un serveur</h4>
-                    <p>Vous pouvez ajouter une application ou bien un serveur si vous n'en avez pas déjà spécifié un lors de votre inscription...</p>
-                    <div class="row row-sm">
-                        <div class="col-sm-6">
-                            <a href="" class="btn btn-primary btn-block">Ajouter une application</a>
-                        </div>
-                        <!-- col-6 -->
-                        <div class="col-sm-6 mg-t-10 mg-sm-t-0">
-                            <a href="" class="btn btn-success btn-block">Ajouter un serveur</a>
-                        </div>
-                        <!-- col-6 -->
+                <div class="row no-gutters">
+                    <div class="col-5 col-sm-4">
+                        <span class="tx-danger mr-1">*</span>Aller à :
                     </div>
-                    <!-- row -->
+                    <!-- col-4 -->
+                    <div class="col-7 col-sm-8">
+                        <input class="form-control" type="text" name="firstname" placeholder="Lieu d'arrivé" ng-model="destination" my-enter="search();" required>
+                    </div>
+                    <!-- col-8 -->
                 </div>
-                <!-- card -->
+                <!-- row -->
+
+                <div class="form-layout-footer mt-4">
+                    <button class="btn btn-primary bd-0" ng-click="search();">Rechercher les offres</button>
+                </div>
+                <!-- form-layout-footer -->
             </div>
-            <!-- col-6 -->
+            <!-- form-layout -->
         </div>
+        <!-- section-wrapper -->
+
+
+        <div class="section-wrapper mg-t-20" ng-show="searchFinished">
+            <label class="section-title">Liste des offres disponibles</label>
+            <p class="mg-b-20 mg-sm-b-40">Vous pouvez réserver votre trajet en cliquant sur le bouton "Reserver" sur l'offre qui vous intéresse.</p>
+
+            <div class="row mg-t-30">
+                <div class="col-md-6 mg-t-30 mg-md-t-0" ng-repeat="offre in offres">
+                    <div class="card bd-0">
+                        <div class="card-header bg-primary bd-0 d-flex align-items-center justify-content-between pd-y-5">
+                            <h6 class="mg-b-0 tx-14 tx-white tx-normal">{[{ offre.origin }]} - {[{ offre.destination }]}</h6>
+                            <div class="card-option tx-24">
+                                <a href="" class="tx-white-8 hover-white mg-l-10"><i class="icon ion-android-more-vertical lh-0"></i></a>
+                            </div>
+                            <!-- card-option -->
+                        </div>
+                        <!-- card-header -->
+
+                        <div class="card-body bd bd-t-0 bd-gray-800 text-center">
+                            <img src="http://www.admissions.fr/voy_content/uploads/2016/06/marseille-350x260.jpg" class="img-fluid mb-4" alt="">
+                            <!-- col -->
+                            <p class="mg-b-0">Ville d’art et de culture, Marseille a plus d’une merveille à vous faire partager. Avec ses 26 siècles d’existence, elle conjugue tradition et modernité.</p>
+                        </div>
+                        <!-- card-body -->
+                        <div class="card-footer bd bd-t-0 d-flex justify-content-between">
+                            <a href="#" class="btn btn-primary">Réserver</a>
+                        </div>
+                    </div>
+                    <!-- card -->
+                </div>
+                <!-- col-6 -->
+            </div>
+            <!-- row -->
+        </div>
+        <!-- section-wrapper -->
     </div>
     <!-- container -->
 </div>

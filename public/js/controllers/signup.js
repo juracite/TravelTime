@@ -1,4 +1,4 @@
-app.controller('signup', function($scope, $http, $window) {
+app.controller('signup', function($scope, $http, $window, $timeout) {
     // ng-models from the signin form
     $scope.email;
     $scope.password;

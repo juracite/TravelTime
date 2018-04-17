@@ -8,6 +8,20 @@ let emailExist = require('email-existence');
 let RateLimit = require('express-rate-limit');
 let session = require('express-session');
 let mysql = require('mysql');
+let bcrypt = require('bcrypt');
+let moment = require('moment');
+
+// MySQL connection
+let connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'root'
+});
+connection.query('USE traveltime', (err) => {
+    if (err) throw err;
+    console.info("Using traveltime database.");
+});
+
 
 let limiter = new RateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -67,11 +81,15 @@ let checkAuth = (req, res, next) => {
 app.use(checkAuth);
 
 // ROUTES
-require('./routes/index').init(app, {}, {});
-require('./routes/user').init(app, { emailExist: emailExist }, {});
+require('./routes/index').init(app, { connection: connection, moment: moment }, {});
+require('./routes/user').init(app, {
+    emailExist: emailExist,
+    connection: connection,
+    bcrypt: bcrypt
+}, {});
 
 // ALL OTHER ROUTES REDIRECT TO '/'
-app.get('*', function (req, res) {
+app.get('*', function(req, res) {
     res.redirect('/');
 });
 
