@@ -5,7 +5,7 @@
     },
     "discord": {
         "key": "393735689344385026",
-        "secret": "dbpSF0ET3aBCbC502f2-0Ciy9i0z2PkA",
+        "secret": "",
         "callback": "/discord_connect_oauth2",
         "scope": [
             "email",
